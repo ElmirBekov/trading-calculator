@@ -85,7 +85,7 @@ function calculate() {
     let high = parseFloat(inputHigh.value);
     let low = parseFloat(inputLow.value);
 
-    // ЕСЛИ ОДНО ИЗ ПОЛЕЙ ПУСТОЕ: просто очищаем результаты, но НЕ трогаем сами инпуты!
+    // Если одно из полей пустое — просто сбрасываем интерфейс и выходим
     if (isNaN(high) || isNaN(low)) {
         hideAllCards();
         rangeVal.innerText = '0.00';
@@ -93,9 +93,10 @@ function calculate() {
         volatilityBadge.style.color = 'var(--text-muted)';
         currentResults = null;
         errorMsg.style.display = 'none';
-        return; // Останавливаем функцию здесь, чтобы поля не стирали друг друга
+        return;
     }
 
+    // Проверка на отрицательные числа
     if (high < 0 || low < 0) {
         errorMsg.innerText = 'Цены не могут быть отрицательными!';
         errorMsg.style.display = 'block';
@@ -103,18 +104,16 @@ function calculate() {
         return;
     }
 
-    // Рокировка срабатывает ТОЛЬКО если оба числа введены корректно
+    // ПРОСТОЙ ВЫВОД ОШИБКИ БЕЗ ПОДМЕНЫ ЗНАЧЕНИЙ
     if (low > high) {
-        errorMsg.innerText = 'High должен быть больше Low! Меняем местами...';
+        errorMsg.innerText = 'Ошибка: Low не может быть больше High!';
         errorMsg.style.display = 'block';
-        
-        let temp = high;
-        high = low;
-        low = temp;
-        inputHigh.value = high;
-        inputLow.value = low;
-        
-        setTimeout(() => { errorMsg.style.display = 'none'; }, 2500);
+        hideAllCards(); // Прячем карточки с неправильными расчетами
+        rangeVal.innerText = '0.00';
+        volatilityBadge.innerText = '-';
+        volatilityBadge.style.color = 'var(--text-muted)';
+        currentResults = null;
+        return; // Стокаем функцию, ничего не меняя в инпутах
     } else {
         errorMsg.style.display = 'none';
     }
