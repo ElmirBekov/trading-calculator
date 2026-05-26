@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Трейдинг Калькулятор</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="auth-container"></div>
+
+    <div class="app-container" id="main-app" style="display: none;">
+        <div class="logout-bar">
+            <span id="user-display-email">Загрузка...</span>
+            <div id="user-button"></div>
+        </div>
+
+        <div class="header">
+            <div class="header-brand-row">
+                <div class="header-logo">AB</div>
+                <div class="header-text-block">
+                    <div class="header-subtitle">XAUUSD • GOLD/USD</div>
+                    <h1 class="header-title">Трейдинг Калькулятор</h1>
+                </div>
+            </div>
+            <div class="tabs">
+                <div class="tab active" data-target="tab-levels">📊 Уровни</div>
+                <div class="tab" data-target="tab-history">🕒 История</div>
+            </div>
+        </div>
+
+        <div id="tab-levels" class="tab-content active">
+            <div class="section-title">Направление рынка</div>
+            <div class="direction-toggle">
+                <button class="dir-btn active" data-dir="BUY">▲ BUY</button>
+                <button class="dir-btn" data-dir="SELL">▼ SELL</button>
+            </div>
+
+            <div class="section-title">Диапазон дня</div>
+            <div class="inputs-row">
+                <div class="input-group">
+                    <label>HIGH</label>
+                    <input type="number" id="input-high" placeholder="0.00" step="0.01" min="0" onkeydown="if(['-', '+', 'e', 'E'].includes(event.key)) event.preventDefault();">
+                </div>
+                <div class="input-group">
+                    <label>LOW</label>
+                    <input type="number" id="input-low" placeholder="0.00" step="0.01" min="0" onkeydown="if(['-', '+', 'e', 'E'].includes(event.key)) event.preventDefault();">
+                </div>
+            </div>
+            
+            <div id="error-message" class="error-msg">High должен быть больше Low! Меняем местами...</div>
+
+            <div class="range-status">
+                <span>Range: <strong id="range-val">0.00</strong></span>
+                <span id="volatility-badge">-</span>
+            </div>
+
+            <div class="levels-section-wrapper">
+                <div class="section-title">Точки входа</div>
+                
+                <div class="level-card" id="card-reversal">
+                    <div class="level-name">Разворот</div>
+                    <div class="level-value" id="val-reversal">-</div>
+                    <div class="level-badge" id="badge-reversal">-</div>
+                </div>
+
+                <div class="level-card" id="card-correction">
+                    <div class="level-name">Коррекция</div>
+                    <div class="level-value" id="val-correction">-</div>
+                    <div class="level-badge" id="badge-correction">-</div>
+                </div>
+
+                <div class="level-card" id="card-big-consolidation">
+                    <div class="level-name">Бол. консолидация</div>
+                    <div class="level-value" id="val-big-consolidation">-</div>
+                    <div class="level-badge" id="badge-big-consolidation">-</div>
+                </div>
+
+                <div class="level-card" id="card-consolidation">
+                    <div class="level-name">Консолидация</div>
+                    <div class="level-value" id="val-consolidation">-</div>
+                    <div class="level-badge" id="badge-consolidation">-</div>
+                </div>
+            </div>
+
+            <button class="save-btn" id="btn-save">💾 Сохранить в историю</button>
+
+            <div class="author-footer">
+                © AB TRADE KG • <span>@Banibo89</span>
+            </div>
+        </div>
+
+        <div id="tab-history" class="tab-content">
+            <div id="history-list"></div>
+            <button class="clear-btn" id="btn-clear-history" style="display:none;">Очистить историю</button>
+        </div>
+    </div>
+
+    <script
+        async
+        crossorigin="anonymous"
+        data-clerk-publishable-key="pk_test_cmVmaW5lZC10ZXJtaXRlLTE1LmNsZXJrLmFjY291bnRzLmRldiQ"
+        src="https://clerk.tradingcalculator.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+        type="text/javascript">
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

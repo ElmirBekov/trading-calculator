@@ -1,0 +1,188 @@
+/* ================= ПЕРЕМЕННЫЕ И ЦВЕТА ================= */
+:root {
+    --bg-main: #0f1015; /* Очень темный, почти черный фон приложения */
+    --bg-card: #16171d; /* Цвет карточек (чуть светлее фона) */
+    --bg-input: #1a1b22; 
+    --text-main: #ffffff;
+    --text-muted: #7b7c89;
+    --border-radius: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #000000;
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden; 
+}
+
+/* Центрирование окна входа Clerk */
+#auth-container {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.app-container {
+    background-color: var(--bg-main);
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    overflow-x: hidden; 
+}
+
+/* Строка пользователя сверху калькулятора */
+.logout-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 20px; background-color: #13141c; border-bottom: 1px solid #1f2029;
+    font-size: 0.85rem; color: var(--text-muted);
+}
+
+/* Шапка и Вкладки */
+.header {
+    padding: 20px 20px 0 20px;
+    border-bottom: 1px solid #1f2029;
+}
+
+.header-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.header-logo {
+    width: 52px; height: 52px;
+    background-color: #e2b764; color: #0f1015;
+    font-weight: 800; font-size: 1.35rem;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 14px; box-shadow: 0 4px 12px rgba(226, 183, 100, 0.15);
+    flex-shrink: 0;
+}
+
+.header-text-block { display: flex; flex-direction: column; gap: 3px; }
+.header-subtitle { font-size: 0.75rem; color: #e2b764; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+.header-title { font-size: 1.45rem; color: var(--text-main); font-weight: 700; letter-spacing: -0.3px; }
+
+.tabs { display: flex; justify-content: space-around; }
+.tab {
+    flex: 1; padding: 12px; text-align: center; color: var(--text-muted); cursor: pointer;
+    border-bottom: 3px solid transparent; transition: all 0.2s ease; font-weight: 500; font-size: 0.95rem;
+}
+.tab.active { color: #e2b764; border-bottom: 3px solid #e2b764; }
+.tab-content { display: none; padding: 20px; flex: 1; overflow-y: auto; }
+.tab-content.active { display: block; }
+
+.section-title {
+    font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;
+    margin-bottom: 10px; letter-spacing: 1px; font-weight: 600;
+}
+
+/* Переключатель BUY / SELL */
+.direction-toggle { display: flex; gap: 12px; margin-bottom: 22px; }
+.dir-btn {
+    flex: 1; padding: 14px; border: 1px solid transparent; border-radius: var(--border-radius);
+    background-color: var(--bg-card); color: var(--text-muted); font-weight: bold; font-size: 1rem;
+    cursor: pointer; transition: all 0.2s ease;
+}
+.dir-btn.active[data-dir="BUY"] { background-color: rgba(76, 217, 100, 0.1); color: #4cd964; border-color: rgba(76, 217, 100, 0.3); }
+.dir-btn.active[data-dir="SELL"] { background-color: rgba(255, 59, 48, 0.1); color: #ff3b30; border-color: rgba(255, 59, 48, 0.3); }
+
+/* Поля ввода */
+.inputs-row { display: flex; gap: 12px; margin-bottom: 12px; }
+.input-group { flex: 1; }
+.input-group label { display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+.input-group input {
+    width: 100%; padding: 14px; background-color: var(--bg-input); border: 1px solid transparent;
+    border-radius: var(--border-radius); color: var(--text-main); font-size: 1.15rem; font-weight: 600; outline: none;
+}
+.input-group input:focus { border-color: #e2b764; }
+
+/* Range */
+.range-status {
+    display: flex; justify-content: space-between; align-items: center;
+    background-color: var(--bg-card); padding: 12px 16px; border-radius: var(--border-radius);
+    margin-bottom: 25px; font-size: 0.9rem; color: var(--text-muted);
+}
+.range-status span strong { color: var(--text-muted); font-size: 0.9rem; font-weight: 600; }
+
+/* ================= ТОЧКИ ВХОДА (МАТОВЫЙ СТИЛЬ) ================= */
+.levels-section-wrapper { margin-bottom: 10px; }
+.levels-section-wrapper .section-title { margin-bottom: 12px; }
+
+.level-card {
+    display: flex; align-items: center; justify-content: space-between;
+    background-color: #17181f; border: 1px solid #23242e; padding: 12px 16px; border-radius: 12px;
+    margin-bottom: 10px; display: none;
+}
+.level-card.visible { display: flex; }
+
+.level-name { font-size: 0.85rem; font-weight: 600; flex: 1; padding: 8px 12px; border-radius: 8px; display: inline-block; }
+.level-value { font-size: 1.3rem; font-weight: 700; flex: 1.5; text-align: center; letter-spacing: 0.5px; }
+.level-badge { font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 6px; text-transform: uppercase; text-align: center; min-width: 65px; letter-spacing: 0.5px; }
+
+/* 🔴 РАЗВОРОТ */
+#card-reversal .level-name { color: #ea2d2d; background-color: rgba(234, 45, 45, 0.08); border: 1px solid rgba(234, 45, 45, 0.15); }
+#card-reversal .level-value { color: #ea2d2d; }
+
+/* 🔵 КОРРЕКЦИЯ */
+#card-correction .level-name { color: #749dd6; background-color: rgba(116, 157, 214, 0.08); border: 1px solid rgba(116, 157, 214, 0.15); }
+#card-correction .level-value { color: #749dd6; }
+
+/* 🟢 БОЛ. КОРРЕКЦИЯ */
+#card-big-consolidation .level-name { color: #5ab582; background-color: rgba(90, 181, 130, 0.08); border: 1px solid rgba(90, 181, 130, 0.15); }
+#card-big-consolidation .level-value { color: #5ab582; }
+
+/* 🟣 КОНСОЛИДАЦИЯ */
+#card-consolidation .level-name { color: #a684d6; background-color: rgba(166, 132, 214, 0.08); border: 1px solid rgba(166, 132, 214, 0.15); }
+#card-consolidation .level-value { color: #a684d6; }
+
+.badge-buy { color: #4cd964; background-color: rgba(76, 217, 100, 0.1); }
+.badge-sell { color: #ea2d2d; background-color: rgba(234, 45, 45, 0.1); }
+
+/* ================= КНОПКИ ДЕЙСТВИЙ И ПОДВАЛ ================= */
+.save-btn {
+    width: 100%; padding: 16px; background-color: var(--bg-card); border: 1px solid #23242e;
+    color: #e2b764; border-radius: var(--border-radius); font-weight: bold; font-size: 1rem;
+    cursor: pointer; margin-top: 15px; transition: background-color 0.2s;
+}
+.save-btn:active { background-color: var(--bg-input); }
+
+.author-footer { text-align: center; padding: 15px 0 5px 0; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; }
+.author-footer span { color: #e2b764; font-weight: 600; }
+
+.clear-btn { width: 100%; padding: 14px; background-color: rgba(234, 45, 45, 0.1); border: 1px solid #ea2d2d; color: #ea2d2d; border-radius: var(--border-radius); cursor: pointer; margin-top: 15px; font-weight: bold; }
+.error-msg { color: #ea2d2d; font-size: 0.8rem; text-align: center; margin-bottom: 12px; font-weight: 500; display: none; }
+
+/* ================= СТИЛИ ИСТОРИИ И СВАЙПА ================= */
+.history-item-wrapper { position: relative; margin-bottom: 12px; border-radius: var(--border-radius); overflow: hidden; background-color: #ea2d2d; }
+.history-item-delete-bg { position: absolute; top: 0; right: 0; bottom: 0; width: 80px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.85rem; cursor: pointer; z-index: 1; }
+.history-item-content { position: relative; background-color: #17181f; padding: 16px; border-radius: var(--border-radius); z-index: 2; transition: transform 0.3s ease; border-left: 4px solid transparent; border: 1px solid #23242e; width: 100%; touch-action: pan-y; }
+.history-item-content.buy-type { border-left-color: #4cd964; }
+.history-item-content.sell-type { border-left-color: #ea2d2d; }
+.history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.history-dir { font-weight: bold; text-transform: uppercase; }
+.history-dir.buy { color: #4cd964; }
+.history-dir.sell { color: #ea2d2d; }
+.history-header-right { display: flex; align-items: center; gap: 12px; }
+.history-date { color: var(--text-muted); font-size: 0.8rem; }
+.delete-item-btn { background: none; border: none; color: var(--text-muted); font-size: 1.4rem; line-height: 0.5; cursor: pointer; padding: 0 4px; transition: color 0.2s ease; }
+.delete-item-btn:hover { color: #ea2d2d; }
+.history-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px dashed #23242e; }
+.history-levels { display: flex; flex-direction: column; gap: 4px; }
+@media (max-width: 768px) { .delete-item-btn { display: none; } }
