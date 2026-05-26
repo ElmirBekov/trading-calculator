@@ -85,6 +85,7 @@ function calculate() {
     let high = parseFloat(inputHigh.value);
     let low = parseFloat(inputLow.value);
 
+    // ЕСЛИ ОДНО ИЗ ПОЛЕЙ ПУСТОЕ: просто очищаем результаты, но НЕ трогаем сами инпуты!
     if (isNaN(high) || isNaN(low)) {
         hideAllCards();
         rangeVal.innerText = '0.00';
@@ -92,7 +93,7 @@ function calculate() {
         volatilityBadge.style.color = 'var(--text-muted)';
         currentResults = null;
         errorMsg.style.display = 'none';
-        return;
+        return; // Останавливаем функцию здесь, чтобы поля не стирали друг друга
     }
 
     if (high < 0 || low < 0) {
@@ -102,6 +103,7 @@ function calculate() {
         return;
     }
 
+    // Рокировка срабатывает ТОЛЬКО если оба числа введены корректно
     if (low > high) {
         errorMsg.innerText = 'High должен быть больше Low! Меняем местами...';
         errorMsg.style.display = 'block';
